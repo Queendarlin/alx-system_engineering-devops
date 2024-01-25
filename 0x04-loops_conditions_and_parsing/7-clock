@@ -4,7 +4,7 @@
 counter_hour=1
 
 while [ $counter_hour -lt 13 ]; do
-	echo "hour"
+	echo "hour: $counter_hour"
 	counter_minute=1
 	while [ $counter_minute -lt 60 ]; do
 		echo "$counter_minute"
