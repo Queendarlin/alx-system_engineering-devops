@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 # Bash script that creates a PID file, displays messages, and handles signals
 
-terminator() {
+cleanup_and_exit() {
   rm /var/run/myscript.pid
   exit
 }
 
-trap 'echo "I hate the kill command" && terminator' SIGTERM
-trap 'terminator' SIGQUIT
+trap 'echo "I hate the kill command" && cleanup_and_exit' SIGTERM
+trap 'cleanup_and_exit' SIGQUIT
 
 echo "$$" > /var/run/myscript.pid
 
