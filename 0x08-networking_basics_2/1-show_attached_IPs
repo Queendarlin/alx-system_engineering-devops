@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Bash script that displays all active IPv4 IPs on the machine.
+
+# Use ifconfig to display active network interfaces and their IPv4 addresses
+# It looks for lines containing "inet addr:".
+# It uses either a colon or one or more spaces as the field separator.
+# It prints the fourth field from those lines, which is typically the IPv4 address.
+
+ifconfig | awk -F "[: ]+" '/inet addr:/ { print $4 }'
