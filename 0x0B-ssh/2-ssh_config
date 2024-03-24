@@ -2,7 +2,7 @@
 # SSH Client Configuration
 
 Host 524568-web-01
-    HostName 18.204.16.143  # The server's IP address or hostname
-    User ubuntu  # Username you use to connect to the server
-    IdentityFile ~/.ssh/school  # Specify the private key file to use
-    PasswordAuthentication no  # Disable password authentication
+    HostName 18.204.16.143
+    User ubuntu
+    IdentityFile ~/.ssh/school
+    PasswordAuthentication no
