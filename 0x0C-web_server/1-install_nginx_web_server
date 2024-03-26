@@ -3,9 +3,6 @@
 apt-get -y update
 apt-get install -y nginx
 
-# Ensure Nginx is listening on port 80 by modifying the default server block
-sed -i 's/\blisten 80 default_server\b/listen 80/g' /etc/nginx/sites-available/default
-
 # Start Nginx service
 service nginx start
 
