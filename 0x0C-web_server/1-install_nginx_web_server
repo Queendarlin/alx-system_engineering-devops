@@ -6,26 +6,13 @@ apt-get install -y nginx
 # Ensure Nginx is listening on port 80
 sed -i 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-available/default
 
+apt-get -y update
+apt-get -y install nginx
+
+sudo service nginx start
+
+ufw allow 'Nginx HTTP'
+echo 'Hello World!' > /var/www/html/index.nginx-debian.html
+
 # Restart Nginx without using systemctl
 service nginx restart
-
-# Check if Nginx is running
-nginx_pid=$(pgrep nginx)
-if [ -z "$nginx_pid" ]; then
-    echo "Nginx failed to start. Check logs for more information."
-    exit 1
-fi
-
-# Create a test HTML file
-echo "<!DOCTYPE html>
-<html>
-<head>
-<title>Hello World!</title>
-</head>
-<body>
-<h1>Hello World!</h1>
-</body>
-</html>" > /var/www/html/index.html
-
-# Display success message
-echo "Nginx installed and configured successfully."
