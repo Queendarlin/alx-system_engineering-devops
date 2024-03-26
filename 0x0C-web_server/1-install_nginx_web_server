@@ -1,18 +1,21 @@
 #!/usr/bin/env bash
-# Install Nginx with the -y flag for automatic confirmation
+# Install Nginx with automatic confirmation
 apt-get -y update
 apt-get install -y nginx
 
-# Ensure Nginx is listening on port 80
-sed -i 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-available/default
+# Ensure Nginx is listening on port 80 by modifying the default server block
+sed -i 's/\blisten 80 default_server\b/listen 80/g' /etc/nginx/sites-available/default
 
-apt-get -y update
-apt-get -y install nginx
+# Start Nginx service
+service nginx start
 
-sudo service nginx start
-
+# Allow HTTP traffic in the firewall
 ufw allow 'Nginx HTTP'
+
+# Create a test HTML file with "Hello World!" content
 echo 'Hello World!' > /var/www/html/index.nginx-debian.html
 
-# Restart Nginx without using systemctl
+# Restart Nginx to apply changes
 service nginx restart
+
+echo "Nginx installation and configuration completed successfully."
