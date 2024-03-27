@@ -1,35 +1,6 @@
-# Update package repositories
-exec { 'update_package_repositories':
-  command => 'apt-get update',
-  path    => '/usr/bin',
-  timeout => 600,
-  unless  => '/usr/bin/test -e /var/lib/apt/periodic/update-success-stamp',
-}
+# Installs a Nginx server
 
-# Install Nginx package
-package { 'nginx':
-  ensure  => installed,
-  require => Exec['update_package_repositories'],
-}
-
-# Create a test HTML file
-file { '/var/www/html/index.nginx-debian.html':
-  ensure  => present,
-  content => 'Hello World!',
-  require => Package['nginx'],
-}
-
-# Configure 301 redirect
-file { '/etc/nginx/sites-available/default':
-  ensure  => present,
-  content => template('your_module/redirect_config.erb'),
-  notify  => Service['nginx'],
-  require => Package['nginx'],
-}
-
-# Start Nginx service
-service { 'nginx':
-  ensure  => running,
-  enable  => true,
-  require => Package['nginx'],
+exec {'install':
+  provider => shell,
+  command  => 'sudo apt-get -y update ; sudo apt-get -y install nginx ; echo "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html ; sudo sed -i "s/server_name _;/server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/lexxyla permanent;/" /etc/nginx/sites-available/default ; sudo service nginx start',
 }
