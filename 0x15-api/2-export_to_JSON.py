@@ -12,7 +12,8 @@ if __name__ == "__main__":
     # Define the base URL for the JSON API
     url = "https://jsonplaceholder.typicode.com/"
 
-    # Fetch user information from the API and convert the response to a JSON object
+    # Fetch user information from the API and convert
+    # the response to a JSON object
     user = requests.get(url + "users/{}".format(user_id)).json()
 
     # Extract the username from the user data
@@ -23,8 +24,8 @@ if __name__ == "__main__":
 
     # Create a dictionary to store the tasks in JSON format
     tasks_json = {user_id: [{"task": task.get("title"),
-                              "completed": task.get("completed"),
-                              "username": username} for task in todos]}
+                             "completed": task.get("completed"),
+                             "username": username} for task in todos]}
 
     # Write the JSON data to a file named after the user ID
     with open("{}.json".format(user_id), "w") as json_file:
