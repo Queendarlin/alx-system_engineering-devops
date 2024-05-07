@@ -1,18 +1,16 @@
 #!/usr/bin/python3
-"""Module for number_of_subscribers function"""
+"""
+Script that queries subscribers on a given Reddit subreddit.
+"""
 
 import requests
 
 
 def number_of_subscribers(subreddit):
-    """function that queries the Reddit API and returns the number of
-    subscribers (not active users, total subscribers) for a given subreddit"""
-
+    """Return the total number of subscribers on a given subreddit."""
     url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
-    header = {'User-Agent': 'myAlxScript/0.0.1'}
-
-    response = requests.get(url, headers=header, allow_redirects=False)
-
+    headers = {"User-Agent": "Mozilla/5.0"}
+    response = requests.get(url, headers=headers, allow_redirects=False)
     if response.status_code == 200:
         data = response.json()
         subscribers = data['data']['subscribers']
